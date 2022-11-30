@@ -33,15 +33,15 @@ const Post = ({ data }) => {
     return (
         <div className="item ">
             <div className="images">
-                <Image src={img || "/"} width={500} height={350} />
+                <Image src={img || `/posts/${id}`} width={500} height={350} />
             </div>
             <div className="info flex flex-col justify-center py-4">
                 <div className="category">
-                    <Link href={"/"} className="text-orange-600 hover:text-orange-800">{category}</Link>
-                    <Link href={"/"} className="text-gray-800 hover:text-gray-600">-{published}</Link>
+                    <Link href={`/posts/${id}`} className="text-orange-600 hover:text-orange-800">{category}</Link>
+                    <Link href={`/posts/${id}`} className="text-gray-800 hover:text-gray-600">-{published}</Link>
                 </div>
                 <div>
-                    <Link href={"/"}>
+                    <Link href={`/posts/${id}`}>
                         <h1 className="text-xl font-semibold text-gray-800 hover:text-gray-600">{title}</h1>
                     </Link>
                 </div>

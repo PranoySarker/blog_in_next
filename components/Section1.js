@@ -9,7 +9,7 @@ import SwiperCore, { Autoplay } from 'swiper';
 import featcher from "../lib/Fetcher";
 
 const Section1 = () => {
-    const { data, isLoading, isError } = featcher('api/posts');
+    const { data, isLoading, isError } = featcher('api/trending');
     // console.log(data);
 
     if (isLoading) return <div>Loading...</div>
@@ -48,7 +48,7 @@ const Section1 = () => {
 
 
 const Slide = ({ data }) => {
-    const { id, title, category, img, published, author } = data;
+    const { id, title, category, img, published, author, description } = data;
     return (
         <div className="grid md:grid-cols-2">
             <div className="image">
@@ -69,7 +69,7 @@ const Slide = ({ data }) => {
                     </Link>
                 </div>
                 <p className="py-4 text-gray-500">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus consectetur vitae earum quasi blanditiis non ad quam placeat expedita voluptatum et commodi animi necessitatibus asperiores, reiciendis quae doloremque veritatis nostrum.
+                    {description}
                 </p>
                 {author ? <Author></Author> : <></>}
             </div>
