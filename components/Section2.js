@@ -1,45 +1,60 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import featcher from "../lib/Fetcher";
 import Author from "./_child/Author";
 
 const Section2 = () => {
+    const { data, isLoading, isError } = featcher('api/posts');
+    console.log(data);
+
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //     fetch("http://localhost:3000/api/posts")
+    //         .then(res => res.json())
+    //         .then(data => setData(data))
+    // }, [])
+
+    // console.log(data);
     return (
         <div className="container mx-auto md:px-20 py-10">
             <h1 className="text-4xl font-bold py-12 text-center">Latest Posts</h1>
 
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
-                {post()}
-                {post()}
-                {post()}
-                {post()}
-                {post()}
-                {post()}
+                {
+                    data.map((value, index) => (
+                        <Post data={value} key={index}></Post>
+                    )
+                    )
+                }
             </div>
         </div>
     );
 }
 
-const post = () => {
+const Post = ({ data }) => {
+    const { id, title, category, img, published, author } = data;
     return (
         <div className="item ">
             <div className="images">
-                <Image src={"/images/img1.jpg"} width={500} height={350} />
+                <Image src={img || "/"} width={500} height={350} />
             </div>
             <div className="info flex flex-col justify-center py-4">
                 <div className="category">
-                    <Link href={"/"} className="text-orange-600 hover:text-orange-800">Bussiness,Travel</Link>
-                    <Link href={"/"} className="text-gray-800 hover:text-gray-600">-Dec 28</Link>
+                    <Link href={"/"} className="text-orange-600 hover:text-orange-800">{category}</Link>
+                    <Link href={"/"} className="text-gray-800 hover:text-gray-600">-{published}</Link>
                 </div>
                 <div>
                     <Link href={"/"}>
-                        <h1 className="text-xl font-semibold text-gray-800 hover:text-gray-600">Your most unhappy customers are your greatest source of learning</h1>
+                        <h1 className="text-xl font-semibold text-gray-800 hover:text-gray-600">{title}</h1>
                     </Link>
                 </div>
                 <p className="py-4 text-gray-500">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus consectetur vitae earum quasi blanditiis non ad quam placeat expedita voluptatum et commodi animi necessitatibus asperiores, reiciendis quae doloremque veritatis nostrum.
                 </p>
-                <Author></Author>
+                {author ? <Author></Author> : <></>}
             </div>
         </div>
     )
