@@ -1,22 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import featcher from "../lib/Fetcher";
 import Author from "./_child/Author";
 
 const Section2 = () => {
     const { data, isLoading, isError } = featcher('api/posts');
-    console.log(data);
-
-    // const [data, setData] = useState([]);
-
-    // useEffect(() => {
-    //     fetch("http://localhost:3000/api/posts")
-    //         .then(res => res.json())
-    //         .then(data => setData(data))
-    // }, [])
-
     // console.log(data);
+
+    if (isLoading) return <div>Loading...</div>
+    if (isError) return <div>Error</div>
+
+
     return (
         <div className="container mx-auto md:px-20 py-10">
             <h1 className="text-4xl font-bold py-12 text-center">Latest Posts</h1>
